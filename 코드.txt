@@ -1,0 +1,40 @@
+import csv
+
+a=[]
+for i in range(1,13):
+    nm = '2016년 ' +str(i)+'월'+'  교통카드'+' 통계자료'+'.csv'
+    
+    f = open(nm)
+    data = csv.reader(f)
+    
+    num = 0
+    for row in data:
+        num = num+int(row[6]) +int(row[7])
+    a.append(num)
+import csv
+f = open('서울 강수량 데이터.csv')
+data = csv.reader(f)
+b = []
+
+for row in data: 
+    if '16' in row[0]:
+        b.append(float((row[2])))
+    
+import numpy as np
+import matplotlib.pyplot as plt
+fig, ax1 = plt.subplots(figsize = (8,4), dpi = 300)
+plt.title('2016년 강수량, 대중교통이용자수 그래프')
+plt.rc('font',family='Malgun Gothic')
+
+t = np.arange(1,13)
+plt.xticks(range(1,13,2), ['1월', '3월', '5월','7월','9월','11월'])
+ax1.plot(t,b,'b-')
+ax1.set_ylabel('강수량(mm)')
+
+ax2 = ax1.twinx()
+
+ax2.plot(t,a, 'r-')
+ax2.set_ylabel('이용자수(억명)')
+
+fig.tight_layout()
+plt.show()
